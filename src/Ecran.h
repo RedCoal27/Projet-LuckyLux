@@ -19,5 +19,10 @@ public:
     void Setup();
     void Effacer();
     void AfficherNom();
+    void AfficherNom();
+    void AfficherNom();
+    void AfficherNom();
+    void AfficherNom();
+   
     //void Ligne();
 };
