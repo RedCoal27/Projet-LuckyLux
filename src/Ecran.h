@@ -17,7 +17,7 @@ public:
     Ecran();
     ~Ecran();
 
-    void Setup();
+    void Initialiser();
     void Effacer();
     void AfficherNom();//bite
  

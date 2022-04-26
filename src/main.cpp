@@ -40,9 +40,8 @@ Ecran _ECRAN;
 
 void setup()
 {
-  _ECRAN.Setup();  
-  _ECRAN.AfficherNom();
-  
+  _ECRAN.Initialiser();  
+  // _ECRAN.AfficherNom();
 }
 int i = 0;
 void loop()
