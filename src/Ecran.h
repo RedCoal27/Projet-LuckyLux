@@ -21,6 +21,6 @@ public:
     void Initialiser();
     void Effacer();
     void AfficherNom();
- 
+    void AfficherMode(const char*);
     //void Ligne();
 };
