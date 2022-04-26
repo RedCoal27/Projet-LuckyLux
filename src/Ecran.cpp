@@ -21,7 +21,7 @@ void Ecran::Effacer()
 
 void Ecran::Initialiser()
 {
-    m_Ecran.Init(PART);
+    m_Ecran.Init(FULL);
     m_Ecran.Clear();
 
     m_fgPaint.SetRotate(ROTATE_90);
@@ -30,10 +30,8 @@ void Ecran::Initialiser()
 
 void Ecran::AfficherNom()
 {
-    m_bgPaint.DrawFilledRectangle(0, 114, 250, 128, RACISE);  //A SURCHARGER avec ligne()
+    m_bgPaint.DrawFilledRectangle(10, 10, 50, 50, RACISE);  //A SURCHARGER avec ligne()
     m_bgPaint.DrawStringAt(0, 112, "LuckyLux", &Font16, BLANC);   //A SURCHARGER avec ligne()
     m_bgPaint.DrawStringAt(151, 112, "Pre-alpha", &Font16, BLANC);    //A SURCHARGER avec ligne()
-    m_fgPaint.DrawStringAt(50, 50, "Bite", &Font16, BLANC);
-    m_Ecran.DisplayPartBaseImage(_bgIMAGE);
-    m_Ecran.DisplayPart(_fgIMAGE);
+    m_Ecran.Display(_bgIMAGE);
 }
