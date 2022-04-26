@@ -12,6 +12,7 @@ class Ecran
 private:
     Paint m_Paint;
     Epd m_Ecran;
+    
 public:
     Ecran();
     ~Ecran();
