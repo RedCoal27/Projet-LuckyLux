@@ -10,7 +10,8 @@
 class Ecran
 {
 private:
-    Paint m_Paint;
+    Paint m_fgPaint;
+    Paint m_bgPaint;
     Epd m_Ecran;
     
 public:
