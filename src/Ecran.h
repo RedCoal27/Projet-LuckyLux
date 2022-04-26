@@ -16,10 +16,10 @@ private:
 public:
     Ecran();
     ~Ecran();
-
+    
     void Initialiser();
     void Effacer();
-    void AfficherNom();//bite
+    void AfficherNom();
  
     //void Ligne();
 };

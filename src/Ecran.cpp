@@ -20,10 +20,11 @@ void Ecran::Effacer()
 
 void Ecran::Initialiser()
 {
+    m_Ecran.Init(FULL);
     m_Paint.Clear(BLANC);
     m_Ecran.Clear();
     m_Paint.SetRotate(ROTATE_90);
-    m_Ecran.Init(FULL);
+    m_Ecran.Display(_IMAGE);
 }
 
 void Ecran::AfficherNom()

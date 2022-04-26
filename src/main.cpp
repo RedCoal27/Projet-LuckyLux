@@ -36,21 +36,20 @@
 #include "Ecran.h"
 #include <string>
 
+
 Ecran _ECRAN;
 
 void setup()
 {
-  _ECRAN.Initialiser();  
-  // _ECRAN.AfficherNom();
+  _ECRAN.Initialiser();
+  _ECRAN.AfficherNom();
+
 }
-int i = 0;
+
 void loop()
 {
-
+ 
 }
-
-
-
 
 
 
