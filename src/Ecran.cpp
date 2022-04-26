@@ -23,9 +23,10 @@ void Ecran::Initialiser()
 {
     m_Ecran.Init(FULL);
     m_Ecran.Clear();
-
+    m_fgPaint.Clear(BLANC);
     m_fgPaint.SetRotate(ROTATE_90);
     m_bgPaint.SetRotate(ROTATE_90);
+    
 }
 
 void Ecran::AfficherNom()
