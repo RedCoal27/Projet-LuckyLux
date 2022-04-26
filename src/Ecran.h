@@ -18,7 +18,7 @@ public:
 
     void Setup();
     void Effacer();
-    void AfficherNom();
+    void AfficherNom();//bite
  
     //void Ligne();
 };
