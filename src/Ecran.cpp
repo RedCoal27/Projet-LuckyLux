@@ -16,12 +16,12 @@ Ecran::~Ecran()
 void Ecran::Effacer()
 {
     m_Paint.Clear(BLANC);
-    
 }
 
 void Ecran::Initialiser()
 {
     m_Paint.Clear(BLANC);
+    m_Ecran.Clear();
     m_Paint.SetRotate(ROTATE_90);
     m_Ecran.Init(FULL);
 }
