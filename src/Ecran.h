@@ -21,7 +21,6 @@ public:
     
     void Initialiser();
     void InitialiserPartiellement();
-    void Effacer();
     void AfficherNom();
     void AfficherMode(const char*);
     //void Ligne();
