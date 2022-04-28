@@ -42,7 +42,7 @@ Ecran _ECRAN;
 void setup()
 {
   _ECRAN.Initialiser();
-  //_ECRAN.AfficherNom();
+  _ECRAN.AfficherNom();
   //_ECRAN.AfficherMode("Luminance");
 }
 

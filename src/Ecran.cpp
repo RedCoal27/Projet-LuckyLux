@@ -24,7 +24,7 @@ void Ecran::Initialiser()
     m_Paint.Clear(BLANC);
     m_Paint.SetRotate(ROTATE_90);
     m_Ecran.Init(FULL);
-}//
+}
 
 void Ecran::AfficherNom()
 {
