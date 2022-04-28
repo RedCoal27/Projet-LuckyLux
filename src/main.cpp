@@ -28,28 +28,46 @@
 
 
 
-#include <Arduino.h>
-#include <SPI.h>
-#include "epd2in13_V2.h"
+// #include <Arduino.h>
+// #include <SPI.h>
+// #include "epd2in13_V2.h"
 #include "epdpaint.h"
-#include "imagedata.h"
-#include "Ecran.h"
-#include <string>
+// #include "imagedata.h"
+// #include "Ecran.h"
+// #include <string>
 
-
-Ecran _ECRAN;
-
+#include "/home/mouss/Documents/Projet-LuckyLux/.pio/libdeps/nano33ble/GxEPD2/src/epd/GxEPD2_213.h"
+GxEPD2_213 _ECRAN(D10, D9, D8, D7);
+u_int8_t _BMP[(250*128)/8];
+Paint paintTest(_BMP, 122, 250);
 void setup()
 {
-  _ECRAN.Initialiser();
-  _ECRAN.AfficherNom();
-  //_ECRAN.AfficherMode("Luminance");
+paintTest.DrawFilledCircle(10, 10, 5, 0);
+    
+  _ECRAN.clearScreen();
+  _ECRAN.writeScreenBuffer();
+  _ECRAN.drawImage(_BMP, 0, 0, 250, 122);
 }
 
 void loop()
 {
- 
+
 }
+
+// Ecran _ECRAN;
+
+// void setup()
+// {
+//   _ECRAN.Initialiser();
+//   _ECRAN.Effacer();
+//   // _ECRAN.InitialiserPartiellement();
+//   // _ECRAN.AfficherNom();
+// }
+
+// void loop()
+// {
+ 
+// }
 
 
 

@@ -296,7 +296,7 @@ void Epd::DisplayPartBaseImage(const unsigned char* frame_buffer)
     WaitUntilIdle();
 }
 
-void Epd::DisplayPart(unsigned int x,unsigned int y,const unsigned char * frame_buffer,unsigned int h,unsigned int w)
+void Epd::DisplayPart(unsigned int x,unsigned int y,const unsigned char * frame_buffer,unsigned int w,unsigned int h)
 {
 	unsigned int i;  
 	unsigned int x_end,y1,y2,y_end1,y_end2;
@@ -336,7 +336,7 @@ void Epd::DisplayPart(unsigned int x,unsigned int y,const unsigned char * frame_
 	
 	
 	 SendCommand(0x24);   //Write Black and White image to RAM
-   for(i=0;i<h*w/8;i++)
+   for(i = 0; i < h * w / 8; i++)
    {                         
      SendData(*frame_buffer);
 			frame_buffer++;
