@@ -32,6 +32,7 @@
 // #include <SPI.h>
 // #include "epd2in13_V2.h"
 #include "epdpaint.h"
+#include "/home/mouss/Documents/Projet-LuckyLux/.pio/libdeps/nano33ble/GxEPD2/src/bitmaps/Bitmaps128x250.h"
 // #include "imagedata.h"
 // #include "Ecran.h"
 // #include <string>
@@ -40,13 +41,21 @@
 GxEPD2_213 _ECRAN(D10, D9, D8, D7);
 u_int8_t _BMP[(250*128)/8];
 Paint paintTest(_BMP, 122, 250);
+
 void setup()
 {
-paintTest.DrawFilledCircle(10, 10, 5, 0);
-    
-  _ECRAN.clearScreen();
-  _ECRAN.writeScreenBuffer();
-  _ECRAN.drawImage(_BMP, 0, 0, 250, 122);
+
+  _ECRAN.init();
+  // comment out next line to have no or minimal Adafruit_GFX code
+  _ECRAN.setTextColor(GxEPD_BLACK);
+  _ECRAN.firstPage();
+  do
+  {
+    _ECRAN.fillScreen(GxEPD_WHITE);
+    // comment out next line to have no or minimal Adafruit_GFX code
+    _ECRAN.print("Hello World!");
+  }
+  while (_ECRAN.nextPage());
 }
 
 void loop()
@@ -60,8 +69,8 @@ void loop()
 // {
 //   _ECRAN.Initialiser();
 //   _ECRAN.Effacer();
-//   // _ECRAN.InitialiserPartiellement();
-//   // _ECRAN.AfficherNom();
+//   _ECRAN.InitialiserPartiellement();
+//   _ECRAN.AfficherNom();
 // }
 
 // void loop()
