@@ -296,77 +296,95 @@ void Epd::DisplayPartBaseImage(const unsigned char* frame_buffer)
     WaitUntilIdle();
 }
 
-void Epd::DisplayPart(unsigned int x,unsigned int y,const unsigned char * frame_buffer,unsigned int w,unsigned int h)
-{
-	unsigned int i;  
-	unsigned int x_end,y1,y2,y_end1,y_end2;
-	x=x/8;//ת��Ϊ�ֽ�
-	x_end=x+w/8-1; 
+// void Epd::DisplayPart(unsigned int x,unsigned int y,const unsigned char * frame_buffer,unsigned int w,unsigned int h)
+// {
+// 	unsigned int i;  
+// 	unsigned int x_end,y1,y2,y_end1,y_end2;
+// 	x=x/8;//ת��Ϊ�ֽ�
+// 	x_end=x+w/8-1; 
 	
-	y1=0;
-	y2=y;
-	if(y>=256)
-	{
-		y1=y2/256;
-		y2=y2%256;
-	}
-	y_end1=0;
-	y_end2=y+h-1;
-	if(y_end2>=256)
-	{
-		y_end1=y_end2/256;
-		y_end2=y_end2%256;		
-	}		
+// 	y1=0;
+// 	y2=y;
+// 	if(y>=256)
+// 	{
+// 		y1=y2/256;
+// 		y2=y2%256;
+// 	}
+// 	y_end1=0;
+// 	y_end2=y+h-1;
+// 	if(y_end2>=256)
+// 	{
+// 		y_end1=y_end2/256;
+// 		y_end2=y_end2%256;		
+// 	}		
 	
-	SendCommand(0x44);       // set RAM x address start/end, in page 35
-	SendData(x);    // RAM x address start at 00h;
-	SendData(x_end);    // RAM x address end at 0fh(15+1)*8->128 
-	SendCommand(0x45);       // set RAM y address start/end, in page 35
-	SendData(y2);    // RAM y address start at 0127h;
-	SendData(y1);    // RAM y address start at 0127h;
-	SendData(y_end2);    // RAM y address end at 00h;
-	SendData(y_end1);    // ????=0	
+// 	SendCommand(0x44);       // set RAM x address start/end, in page 35
+// 	SendData(x);    // RAM x address start at 00h;
+// 	SendData(x_end);    // RAM x address end at 0fh(15+1)*8->128 
+// 	SendCommand(0x45);       // set RAM y address start/end, in page 35
+// 	SendData(y2);    // RAM y address start at 0127h;
+// 	SendData(y1);    // RAM y address start at 0127h;
+// 	SendData(y_end2);    // RAM y address end at 00h;
+// 	SendData(y_end1);    // ????=0	
 
 
-	SendCommand(0x4E);   // set RAM x address count to 0;
-	SendData(x); 
-	SendCommand(0x4F);   // set RAM y address count to 0X127;    
-	SendData(y2);
-	SendData(y1);
+// 	SendCommand(0x4E);   // set RAM x address count to 0;
+// 	SendData(x); 
+// 	SendCommand(0x4F);   // set RAM y address count to 0X127;    
+// 	SendData(y2);
+// 	SendData(y1);
 	
 	
-	 SendCommand(0x24);   //Write Black and White image to RAM
-   for(i = 0; i < h * w / 8; i++)
-   {                         
-     SendData(*frame_buffer);
-			frame_buffer++;
-   } 
+// 	 SendCommand(0x24);   //Write Black and White image to RAM
+//    for(i = 0; i < h * w / 8; i++)
+//    {                         
+//      SendData(*frame_buffer);
+// 			frame_buffer++;
+//    } 
    
-    //DISPLAY REFRESH
-    SendCommand(0x22);
-    SendData(0x0C);
-    SendCommand(0x20);
-    WaitUntilIdle();
-}
+//     //DISPLAY REFRESH
+//     SendCommand(0x22);
+//     SendData(0x0C);
+//     SendCommand(0x20);
+//     WaitUntilIdle();
+// }
 
-void Epd::ClearPart(void)
+// void Epd::ClearPart(void)
+// {
+//     int w, h;
+//     w = (EPD_WIDTH % 8 == 0)? (EPD_WIDTH / 8 ): (EPD_WIDTH / 8 + 1);
+//     h = EPD_HEIGHT;
+//     SendCommand(0x24);
+//     for (int j = 0; j < h; j++) {
+//         for (int i = 0; i < w; i++) {
+//             SendData(0xff);
+//         }
+//     }
+
+//     //DISPLAY REFRESH
+//     SendCommand(0x22);
+//     SendData(0x0C);
+//     SendCommand(0x20);
+//     WaitUntilIdle();
+// }
+
+
+
+void Epd::DisplayPart(const unsigned char* frame_buffer)
 {
-    int w, h;
-    w = (EPD_WIDTH % 8 == 0)? (EPD_WIDTH / 8 ): (EPD_WIDTH / 8 + 1);
-    h = EPD_HEIGHT;
-    SendCommand(0x24);
-    for (int j = 0; j < h; j++) {
-        for (int i = 0; i < w; i++) {
-            SendData(0xff);
+    int w = (EPD_WIDTH % 8 == 0)? (EPD_WIDTH / 8 ): (EPD_WIDTH / 8 + 1);
+    int h = EPD_HEIGHT;
+
+    if (frame_buffer != NULL) {
+        SendCommand(0x24);
+        for (int j = 0; j < h; j++) {
+            for (int i = 0; i < w; i++) {
+                SendData(pgm_read_byte(&frame_buffer[i + j * w]));
+            }
         }
     }
-
-    //DISPLAY REFRESH
-    SendCommand(0x22);
-    SendData(0x0C);
-    SendCommand(0x20);
-    WaitUntilIdle();
 }
+
 
 /**
  *  @brief: After this command is transmitted, the chip would enter the
@@ -376,6 +394,7 @@ void Epd::ClearPart(void)
  *          executed if check code = 0xA5.
  *          You can use Epd::Init() to awaken
  */
+
 void Epd::Sleep()
 {
     SendCommand(0x10); //enter deep sleep
