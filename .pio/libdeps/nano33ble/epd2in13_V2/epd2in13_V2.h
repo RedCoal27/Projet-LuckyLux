@@ -55,7 +55,7 @@ public:
     void Clear(void);
     void Display(const unsigned char* frame_buffer);
     void DisplayPartBaseImage(const unsigned char* frame_buffer);
-    void DisplayPart(const unsigned char* frame_buffer);
+    void DisplayPart(unsigned int x,unsigned int y,const unsigned char * frame_buffer,unsigned int h,unsigned int w);
     void ClearPart(void);
     
     void Sleep(void);
