@@ -6,6 +6,5 @@
 
 
 
-void SDsetup();
-void SDwrite(String data);
-void SDwriteBullshit(String data);
+void SDsetup(int pinCS = 10);
+void SDwrite(String nomFichier, String data);

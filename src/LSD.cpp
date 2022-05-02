@@ -1,7 +1,7 @@
 #include "LSD.h"
 
 File myFile;
-void SDsetup()
+void SDsetup(int pinCS)
 {
   Serial.begin(9600);
   Serial.print("Initializing SD card...");
@@ -9,9 +9,9 @@ void SDsetup()
   // Note that even if it's not used as the CS pin, the hardware SS pin 
   // (10 on most Arduino boards, 53 on the Mega) must be left as an output 
   // or the SD library functions will not work. 
-   pinMode(10, OUTPUT);
+   pinMode(pinCS, OUTPUT);
  
-  if (!SD.begin(10)) {
+  if (!SD.begin(pinCS)) {
     Serial.println("initialization failed!");
     return;
   }
@@ -23,26 +23,9 @@ void SDsetup()
 
 
 //writing parameter to sd card
-void SDwrite(String data)
+void SDwrite(String nomFichier, String data)
 {
-  myFile = SD.open("data.csv", FILE_WRITE);
-  if (myFile) 
-  {
-    myFile.println(data);
-   
-    myFile.close();
-   
-  } 
-  else 
-  {
-    Serial.println("error opening file");
-  }
-}
-
-//writing bullshit to sd card
-void SDwriteBullshit(String data)
-{
-  myFile = SD.open("data.csv", FILE_WRITE);
+  myFile = SD.open(nomFichier, FILE_WRITE);
   if (myFile) 
   {
     myFile.println(data);
