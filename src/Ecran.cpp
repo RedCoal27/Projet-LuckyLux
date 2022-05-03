@@ -45,7 +45,7 @@ void Ecran::AfficherBandeau()
     AfficherTexteGauche("LuckyLux",0, 0, m_Ecran.width(), hauteurBandeau - 4, BLANC);
     AfficherTexteDroite("Alpha",0, 0, m_Ecran.width(), hauteurBandeau - 4, BLANC);
 }
-#if false
+
 void Ecran::AfficherBandeau()
 {
   
@@ -77,34 +77,34 @@ void Ecran::AfficherBandeau()
     while (m_Ecran.nextPage());
     delay(1000);
 
-  #if false
-  // show updates in the update box
-  m_Ecran.setRotation(3);
-    m_Ecran.setPartialWindow(box_x, box_y, box_w, box_h);
-    for (uint16_t i = 1; i <= 10; i += incr)
-    {
-      m_Ecran.firstPage();
-      do
-      {
-        m_Ecran.fillRect(box_x, box_y, box_w, box_h, GxEPD_WHITE);
-        m_Ecran.setCursor(box_x, cursor_y);
-        m_Ecran.print(value * i, 2);
-      }
-      while (m_Ecran.nextPage());
-      delay(500);
-    }
-    delay(1000);
-    m_Ecran.firstPage();
-    do
-    {
-      m_Ecran.fillRect(box_x, box_y, box_w, box_h, GxEPD_WHITE);
-    }
-    while (m_Ecran.nextPage());
-    delay(1000);
-  #endif
+  // // #if false
+  // // // show updates in the update box
+  // // m_Ecran.setRotation(3);
+  // //   m_Ecran.setPartialWindow(box_x, box_y, box_w, box_h);
+  // //   for (uint16_t i = 1; i <= 10; i += incr)
+  // //   {
+  // //     m_Ecran.firstPage();
+  // //     do
+  // //     {
+  // //       m_Ecran.fillRect(box_x, box_y, box_w, box_h, GxEPD_WHITE);
+  // //       m_Ecran.setCursor(box_x, cursor_y);
+  // //       m_Ecran.print(value * i, 2);
+  // //     }
+  // //     while (m_Ecran.nextPage());
+  // //     delay(500);
+  // //   }
+  // //   delay(1000);
+  // //   m_Ecran.firstPage();
+  // //   do
+  // //   {
+  // //     m_Ecran.fillRect(box_x, box_y, box_w, box_h, GxEPD_WHITE);
+  // //   }
+  // //   while (m_Ecran.nextPage());
+  // //   delay(1000);
+  // // #endif
 
-}
-#endif
+
+
 void Ecran::AfficherTexteCentre(String str)
 {
     uint8_t hauteurBandeau = 13;
