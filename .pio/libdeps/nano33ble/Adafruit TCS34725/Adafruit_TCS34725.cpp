@@ -246,7 +246,7 @@ void Adafruit_TCS34725::getRawDataOneShot(uint16_t *r, uint16_t *g, uint16_t *b,
  *  @param  *b
  *          Blue value normalized to 0-255
  */
-void Adafruit_TCS34725::getRGB(float *r, float *g, float *b, uint16_t *lux) {
+void Adafruit_TCS34725::getRGB(float *r, float *g, float *b, int *lux) {
   uint16_t red, green, blue, clear;
   getRawData(&red, &green, &blue, &clear);
 

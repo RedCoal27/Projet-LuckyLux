@@ -46,62 +46,37 @@ void Ecran::AfficherBandeau()
     AfficherTexteDroite("Alpha",0, 0, m_Ecran.width(), hauteurBandeau - 4, BLANC);
 }
 
-void Ecran::AfficherBandeau()
-{
+// // void Ecran::AfficherBandeau()
+// // {
   
-  // use asymmetric values for test
-  uint16_t box_x = 10;
-  uint16_t box_y = 15;
-  uint16_t box_w = 70;
-  uint16_t box_h = 20;
-  uint16_t cursor_y = box_y + box_h - 6;
+// //   // use asymmetric values for test
+// //   uint16_t box_x = 10;
+// //   uint16_t box_y = 15;
+// //   uint16_t box_w = 70;
+// //   uint16_t box_h = 20;
+// //   uint16_t cursor_y = box_y + box_h - 6;
  
 
-  // show where the update box is
+// //   // show where the update box is
  
-    m_Ecran.setRotation(3);
-    m_Ecran.setPartialWindow(box_x, box_y, box_w, box_h);
-    m_Ecran.firstPage();
-    do
-    {
-      m_Ecran.fillRect(box_x, box_y, box_w, box_h, GxEPD_BLACK);
-      //m_Ecran.fillScreen(GxEPD_BLACK);
-    }
-    while (m_Ecran.nextPage());
-    delay(2000);
-    m_Ecran.firstPage();
-    do
-    {
-      m_Ecran.fillRect(box_x, box_y, box_w, box_h, GxEPD_WHITE);
-    }
-    while (m_Ecran.nextPage());
-    delay(1000);
-
-  // // #if false
-  // // // show updates in the update box
-  // // m_Ecran.setRotation(3);
-  // //   m_Ecran.setPartialWindow(box_x, box_y, box_w, box_h);
-  // //   for (uint16_t i = 1; i <= 10; i += incr)
-  // //   {
-  // //     m_Ecran.firstPage();
-  // //     do
-  // //     {
-  // //       m_Ecran.fillRect(box_x, box_y, box_w, box_h, GxEPD_WHITE);
-  // //       m_Ecran.setCursor(box_x, cursor_y);
-  // //       m_Ecran.print(value * i, 2);
-  // //     }
-  // //     while (m_Ecran.nextPage());
-  // //     delay(500);
-  // //   }
-  // //   delay(1000);
-  // //   m_Ecran.firstPage();
-  // //   do
-  // //   {
-  // //     m_Ecran.fillRect(box_x, box_y, box_w, box_h, GxEPD_WHITE);
-  // //   }
-  // //   while (m_Ecran.nextPage());
-  // //   delay(1000);
-  // // #endif
+// //     m_Ecran.setRotation(3);
+// //     m_Ecran.setPartialWindow(box_x, box_y, box_w, box_h);
+// //     m_Ecran.firstPage();
+// //     do
+// //     {
+// //       m_Ecran.fillRect(box_x, box_y, box_w, box_h, GxEPD_BLACK);
+// //       //m_Ecran.fillScreen(GxEPD_BLACK);
+// //     }
+// //     while (m_Ecran.nextPage());
+// //     delay(2000);
+// //     m_Ecran.firstPage();
+// //     do
+// //     {
+// //       m_Ecran.fillRect(box_x, box_y, box_w, box_h, GxEPD_WHITE);
+// //     }
+// //     while (m_Ecran.nextPage());
+// //     delay(1000);
+// // }
 
 
 
@@ -137,9 +112,9 @@ void Ecran::AfficherTexteDroite(String str, int x0, int y0, int x1, int y1, int 
 {
     m_Ecran.setFont(&FreeMonoBold9pt7b);
     m_Ecran.setTextColor(couleur);
-    int strWidth;
-    int strHeight;
-    m_Ecran.getTextBounds(str, 0, 0,0, 0, &strWidth, &strHeight);
+    int* strWidth;
+    int* strHeight;
+    // m_Ecran.getTextBounds(&str, 0, 0, &x1, &y1, &strWidth, &strHeight);
     do
     {
         
