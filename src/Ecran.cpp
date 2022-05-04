@@ -26,24 +26,21 @@ void Ecran::Initialiser()
 
 void Ecran::InitialiserPartiellement()
 {
-    uint8_t hauteurBandeau = 13;
-
     Ecran::Initialiser();
-    m_Ecran.setPartialWindow(0, 0, m_Ecran.width(), m_Ecran.height() - hauteurBandeau);
+    m_Ecran.setPartialWindow(0, 0, m_Ecran.width(), m_Ecran.height() - HAUTEUR_BANDEAU);
     m_Ecran.setTextColor(NOIR);
 }
 void Ecran::AfficherBandeau()
 {
-    uint8_t hauteurBandeau = 18;
-    m_Ecran.setPartialWindow(0, 0, m_Ecran.width(), m_Ecran.height() - hauteurBandeau);
+    m_Ecran.setPartialWindow(0, 0, m_Ecran.width(), m_Ecran.height() - HAUTEUR_BANDEAU);
     m_Ecran.firstPage();
     do
     {
-      m_Ecran.fillRect(0, 0, m_Ecran.width(),hauteurBandeau, NOIR);
+      m_Ecran.fillRect(0, 0, m_Ecran.width(),HAUTEUR_BANDEAU, NOIR);
     } 
     while (m_Ecran.nextPage());
-    AfficherTexteGauche("LuckyLux",0, 0, m_Ecran.width(), hauteurBandeau - 4, BLANC);
-    AfficherTexteDroite("Alpha",0, 0, m_Ecran.width(), hauteurBandeau - 4, BLANC);
+    AfficherTexte("LuckyLux",0, 0, m_Ecran.width(), HAUTEUR_BANDEAU - 4, BLANC);
+    AfficherTexte("Alpha",0, 0, m_Ecran.width(), HAUTEUR_BANDEAU - 4, BLANC);
 }
 
 // // void Ecran::AfficherBandeau()
@@ -82,8 +79,7 @@ void Ecran::AfficherBandeau()
 
 void Ecran::AfficherTexteCentre(String str)
 {
-    uint8_t hauteurBandeau = 13;
-    m_Ecran.setPartialWindow(0, 0, m_Ecran.width(), m_Ecran.height() - hauteurBandeau);
+    m_Ecran.setPartialWindow(0, 0, m_Ecran.width(), m_Ecran.height() - HAUTEUR_BANDEAU);
     int16_t bordureTexteX, bordureTexteY; uint16_t largeurTexte, hauteurTexte;
     m_Ecran.getTextBounds(str, 0, 0, &bordureTexteX, &bordureTexteY, &largeurTexte, &hauteurTexte);
     int16_t curX = ((m_Ecran.width() - largeurTexte)/2) - bordureTexteX;
@@ -97,28 +93,21 @@ void Ecran::AfficherTexteCentre(String str)
     while (m_Ecran.nextPage());
 }
 
-void Ecran::AfficherTexteGauche(String str, int x0, int y0, int x1, int y1, int couleur)
+void Ecran::AfficherTexte(String str, int x0, int y0, int x1, int y1, int couleur)
 {
-    m_Ecran.setFont(&FreeMonoBold9pt7b);
-    m_Ecran.setTextColor(couleur);
+
+    m_Ecran.setPartialWindow(x0, y0, x1, y1);
+
+    // // int16_t bordureTexteX, bordureTexteY; 
+    // // uint16_t largeurTexte, hauteurTexte;
+
+    // // m_Ecran.getTextBounds(str, 0, 0, &bordureTexteX, &bordureTexteY, &largeurTexte, &hauteurTexte);
+    // // int16_t curseurX = ((m_Ecran.width() - largeurTexte)/2) - bordureTexteX;
+    // // int16_t curseurY = ((m_Ecran.height() - hauteurTexte)/2) - bordureTexteY;
     do
     {
-        m_Ecran.setCursor(x0, y1);
-        m_Ecran.print(str);        
-    } 
-    while (m_Ecran.nextPage());
-}
-void Ecran::AfficherTexteDroite(String str, int x0, int y0, int x1, int y1, int couleur)
-{
-    m_Ecran.setFont(&FreeMonoBold9pt7b);
-    m_Ecran.setTextColor(couleur);
-    int* strWidth;
-    int* strHeight;
-    // m_Ecran.getTextBounds(&str, 0, 0, &x1, &y1, &strWidth, &strHeight);
-    do
-    {
-        
-        m_Ecran.setCursor(x1 - strWidth, y1);
+        m_Ecran.fillScreen(BLANC);
+        m_Ecran.setCursor(x0, y0);
         m_Ecran.print(str);        
     } 
     while (m_Ecran.nextPage());

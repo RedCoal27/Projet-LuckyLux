@@ -10,9 +10,17 @@
 #include <Fonts/FreeMonoBold9pt7b.h>
 #include "/home/mouss/Documents/Projet-LuckyLux/.pio/libdeps/nano33ble/U8g2_for_Adafruit_GFX-1.8.0/U8g2_for_Adafruit_GFX-1.8.0/src/U8g2_for_Adafruit_GFX.h"
 #include "LSD.h"
-#define ENABLE_GxEPD2_GFX 0
 #define NOIR 0
 #define BLANC 1
+#define HAUTEUR_BANDEAU 18
+#define xMIN 0
+#define xMAX 250
+#define yMIN 0
+#define yMAX 128
+#define xMENU_MIN xMIN
+#define xMENU_MAX xMAX
+#define yMENU_MIN HAUTEUR_BANDEAU
+#define yMENU_MAX yMAX
 
 
 
@@ -30,6 +38,5 @@ public:
     void InitialiserPartiellement();
     void AfficherBandeau();
     void AfficherTexteCentre(String str);
-    void AfficherTexteGauche(String str, int x0, int y0, int x1, int y1, int couleur);
-    void AfficherTexteDroite(String str, int x0, int y0, int x1, int y1, int couleur);
+    void AfficherTexte(String str, int x0, int y0, int x1, int y1, int couleur);
 };
