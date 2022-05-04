@@ -14,8 +14,10 @@ Ecran _ECRAN;
 
 void setup()
 {
-    _ECRAN.InitialiserPartiellement();
-_ECRAN.AfficherBandeau();
+    _ECRAN.Initialiser();
+    delay(2000);
+    _ECRAN.AfficherBandeau();
+    _ECRAN.AfficherTexteMenu("Luminance");
    delay(100000);
 }
 
