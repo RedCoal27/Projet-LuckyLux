@@ -18,7 +18,7 @@ void setup()
     delay(2000);
     _ECRAN.AfficherBandeau();
     _ECRAN.AfficherTexteMenu("Luminance");
-   delay(100000);
+   delay(2000);
 }
 
 void loop()
@@ -29,6 +29,7 @@ void loop()
 //   Serial.print(String(colorInfo[0]) + ";" + String(colorInfo[1]) + ";" + String(colorInfo[2]) + ";\n");
 //   delay(1000);
 //   SDwrite("bite2.csv", String(colorInfo[0]) + ";" + String(colorInfo[1]) + ";" + String(colorInfo[2]) + ";\n");
+    Serial.println("test");
 }
 
 
