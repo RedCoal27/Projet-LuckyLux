@@ -1,15 +1,17 @@
 #include "color.h"
 #include "LSD.h"
 #include "Ecran.h"
+#include "button.h"
 #define DISP GxEPD2_213_B72
 #define _SD_PIN_CS 6
 #define ENABLE_GxEPD2_GFX 0
 #define BLANC 1
 #define NOIR 0
+
 byte *gammatable = new byte[256];
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
 Ecran _ECRAN; 
-
+Button _BOUTON;
 
 
 void setup()
@@ -18,18 +20,29 @@ void setup()
     delay(2000);
     _ECRAN.AfficherBandeau();
     _ECRAN.AfficherTexteMenu("Luminance");
-   delay(2000);
+    delay(2000);
 }
 
 void loop()
 {
+    if(_BOUTON.pressed(0) == true)
+    {
+        _ECRAN.AfficherTexteMenu("Bouton 0");
+    }
+    if(_BOUTON.pressed(1) == true)
+    {
+        _ECRAN.AfficherTexteMenu("Bouton 1");
+    }
+    if(_BOUTON.pressed(2) == true)
+    {
+        _ECRAN.AfficherTexteMenu("Bouton 2");
+    }
 // int *colorInfo = new int[3];
 //   delay(1000);
 //   ColorRead(gammatable, &tcs, colorInfo);
 //   Serial.print(String(colorInfo[0]) + ";" + String(colorInfo[1]) + ";" + String(colorInfo[2]) + ";\n");
 //   delay(1000);
 //   SDwrite("bite2.csv", String(colorInfo[0]) + ";" + String(colorInfo[1]) + ";" + String(colorInfo[2]) + ";\n");
-    Serial.println("test");
 }
 
 

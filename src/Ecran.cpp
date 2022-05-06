@@ -33,9 +33,9 @@ void Ecran::AfficherBandeau()
       m_Ecran.fillRect(0, 0, m_Ecran.width(),HAUTEUR_BANDEAU, NOIR);
     } 
     while (m_Ecran.nextPage());
-    AfficherTexte("LuckyLux",0, yMENU_MIN - 7/*petite marge*/, BLANC);
+    AfficherTexte("LuckyLux",0, yMENU_MIN - 6/*petite marge*/, BLANC);
     m_Ecran.getTextBounds("Alpha", 0, 0, &bordureTexteX, &bordureTexteY, &largeurTexte, &hauteurTexte);
-    AfficherTexte("Alpha", xMAX - largeurTexte - 1, yMENU_MIN, BLANC);
+    AfficherTexte("Alpha", xMAX - largeurTexte - 1, yMENU_MIN-6, BLANC);
 }
 
 void Ecran::AfficherTexteCentre(String str, int couleur)
