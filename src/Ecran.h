@@ -9,7 +9,9 @@
 #include <Fonts/FreeMono9pt7b.h>
 #include <Fonts/FreeMonoBold9pt7b.h>
 #include "LSD.h"
+#if  __has_include("myinclude.h")
 #include "include.h"
+#endif
 #define NOIR 0
 #define BLANC 1
 #define HAUTEUR_BANDEAU 16
