@@ -6,12 +6,13 @@
 #define BOUTONA2 2
 
 
-class Button{
+class Bouton{
 private:
-    bool* last;
+    bool* bLast;
+    
 public:
-    Button();
-    ~Button();
+    Bouton();
+    ~Bouton();
     bool pressed(int button);
 
 };

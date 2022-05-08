@@ -1,11 +1,13 @@
 #include "Ecran.h"
 
-Ecran::Ecran(): m_Ecran(GxEPD2_213_B72(D10, D9, D8, D7))
+Ecran::Ecran(): m_Ecran(GxEPD2_213_B72(D10, D9, D8, D7)), m_spMenu(nullptr), m_nCompteurMenu(0)
 {
+    m_spMenu = new String[5] {"Luminance", "Eclairement", "Couleur", "Trois Mesures", "Mesure Continue"};
 }
 
 Ecran::~Ecran()
 {
+    delete[] m_spMenu;
 }
 
 void Ecran::Initialiser()
@@ -15,7 +17,6 @@ void Ecran::Initialiser()
     m_Ecran.clearScreen();
     m_Ecran.setRotation(3);
     m_Ecran.firstPage();
-    setFont(&FreeMonoBold9pt7b);
 }
 
 void Ecran::AfficherBandeau()
@@ -33,9 +34,9 @@ void Ecran::AfficherBandeau()
       m_Ecran.fillRect(0, 0, m_Ecran.width(),HAUTEUR_BANDEAU, NOIR);
     } 
     while (m_Ecran.nextPage());
-    AfficherTexte("LuckyLux",0, yMENU_MIN - 6/*petite marge*/, BLANC);
     m_Ecran.getTextBounds("Alpha", 0, 0, &bordureTexteX, &bordureTexteY, &largeurTexte, &hauteurTexte);
-    AfficherTexte("Alpha", xMAX - largeurTexte - 1, yMENU_MIN-6, BLANC);
+    AfficherTexte("LuckyLux", 0, yMENU_MIN - 5 /*petite marge*/, BLANC);
+    AfficherTexte("Alpha", xMAX - largeurTexte - 1, yMENU_MIN - 5, BLANC);
 }
 
 void Ecran::AfficherTexteCentre(String str, int couleur)
@@ -94,4 +95,30 @@ void Ecran::AfficherTexteMenu(String mode)
 void Ecran::setFont(const GFXfont* police)
 {
     m_Ecran.setFont(police);
+}
+
+void Ecran::menuEntree(unsigned int indice)
+{
+    AfficherTexteMenu(m_spMenu[indice]);
+    if (indice < 5)
+        m_nCompteurMenu = indice;
+    else
+        m_nCompteurMenu = 0;
+    
+}
+
+void Ecran::menuSuivant()
+{
+    m_nCompteurMenu++;
+    if (m_nCompteurMenu >= 5)
+        m_nCompteurMenu = 0; 
+    AfficherTexteMenu(m_spMenu[m_nCompteurMenu]);
+}
+
+void Ecran::menuPrecedant()
+{
+    m_nCompteurMenu--;
+    if (m_nCompteurMenu < 0)
+        m_nCompteurMenu = 4; 
+    AfficherTexteMenu(m_spMenu[m_nCompteurMenu]);
 }

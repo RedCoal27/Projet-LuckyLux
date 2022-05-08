@@ -1,42 +1,38 @@
 #include "color.h"
 #include "LSD.h"
 #include "Ecran.h"
-#include "button.h"
+#include "Bouton.h"
 #define DISP GxEPD2_213_B72
 #define _SD_PIN_CS 6
-#define ENABLE_GxEPD2_GFX 0
-#define BLANC 1
-#define NOIR 0
+
 
 byte *gammatable = new byte[256];
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
 Ecran _ECRAN; 
-Button _BOUTON;
+Bouton _BOUTON;
 
 
 void setup()
 {
     _ECRAN.Initialiser();
     delay(2000);
+    _ECRAN.setFont(POLICE_BANDEAU);
     _ECRAN.AfficherBandeau();
-    _ECRAN.AfficherTexteMenu("Luminance");
-    delay(2000);
+    _ECRAN.setFont(POLICE_MENU);
+    _ECRAN.menuEntree(LUMINANCE);
 }
 
 void loop()
 {
-    if(_BOUTON.pressed(0) == true)
+    if(_BOUTON.pressed(BOUTONA0) == true)
     {
-        _ECRAN.AfficherTexteMenu("Bouton 0");
+        _ECRAN.menuSuivant();
     }
-    if(_BOUTON.pressed(1) == true)
+    if(_BOUTON.pressed(BOUTONA2) == true)
     {
-        _ECRAN.AfficherTexteMenu("Bouton 1");
+        _ECRAN.menuPrecedant();
     }
-    if(_BOUTON.pressed(2) == true)
-    {
-        _ECRAN.AfficherTexteMenu("Bouton 2");
-    }
+    
 // int *colorInfo = new int[3];
 //   delay(1000);
 //   ColorRead(gammatable, &tcs, colorInfo);
