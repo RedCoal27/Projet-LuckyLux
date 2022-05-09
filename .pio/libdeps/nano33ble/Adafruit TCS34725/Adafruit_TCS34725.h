@@ -204,7 +204,7 @@ public:
   void setIntegrationTime(uint8_t it);
   void setGain(tcs34725Gain_t gain);
   void getRawData(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c);
-  void getRGB(float *r = nullptr, float *g = nullptr, float *b = nullptr, int *lux = nullptr);
+  void getRGB(float *r, float *g, float *b);
   void getRawDataOneShot(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c);
   uint16_t calculateColorTemperature(uint16_t r, uint16_t g, uint16_t b);
   uint16_t calculateColorTemperature_dn40(uint16_t r, uint16_t g, uint16_t b,
@@ -218,6 +218,7 @@ public:
   void setIntLimits(uint16_t l, uint16_t h);
   void enable();
   void disable();
+
 private:
   Adafruit_I2CDevice *i2c_dev = NULL; ///< Pointer to I2C bus interface
   boolean _tcs34725Initialised;
