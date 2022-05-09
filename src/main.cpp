@@ -20,8 +20,7 @@ void setup()
     _ECRAN.AfficherBandeau();
     _ECRAN.setFont(POLICE_MENU);
     _ECRAN.menuEntree(LUMINANCE);
-    Serial.println("Setup");
-    delay(5000);
+    ColorSetup(gammatable, &tcs);
 }
 
 void loop()
@@ -36,7 +35,6 @@ void loop()
     }
     if(_BOUTON.pressed(BOUTONA2) == true)
     {
-        _ECRAN.AfficherTexteMenu("test");
         int *colorInfo = new int[3];
         ColorRead(gammatable, &tcs, colorInfo);
         _ECRAN.AfficherTexteMenu(String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2]));
