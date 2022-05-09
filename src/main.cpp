@@ -15,11 +15,13 @@ Bouton _BOUTON;
 void setup()
 {
     _ECRAN.Initialiser();
-    delay(2000);
+    delay(1000);
     _ECRAN.setFont(POLICE_BANDEAU);
     _ECRAN.AfficherBandeau();
     _ECRAN.setFont(POLICE_MENU);
     _ECRAN.menuEntree(LUMINANCE);
+    Serial.println("Setup");
+    delay(5000);
 }
 
 void loop()
@@ -28,15 +30,22 @@ void loop()
     {
         _ECRAN.menuSuivant();
     }
-    if(_BOUTON.pressed(BOUTONA2) == true)
+    if(_BOUTON.pressed(BOUTONA1) == true)
     {
         _ECRAN.menuPrecedant();
     }
-    
+    if(_BOUTON.pressed(BOUTONA2) == true)
+    {
+        _ECRAN.AfficherTexteMenu("test");
+        int *colorInfo = new int[3];
+        ColorRead(gammatable, &tcs, colorInfo);
+        _ECRAN.AfficherTexteMenu(String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2]));
+    }
 // int *colorInfo = new int[3];
+//   Serial.println("Reading color...");
 //   delay(1000);
 //   ColorRead(gammatable, &tcs, colorInfo);
-//   Serial.print(String(colorInfo[0]) + ";" + String(colorInfo[1]) + ";" + String(colorInfo[2]) + ";\n");
+//   Serial.println(String(colorInfo[0]) + ";" + String(colorInfo[1]) + ";" + String(colorInfo[2]) + ";\n");
 //   delay(1000);
 //   SDwrite("bite2.csv", String(colorInfo[0]) + ";" + String(colorInfo[1]) + ";" + String(colorInfo[2]) + ";\n");
 }
