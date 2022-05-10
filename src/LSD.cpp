@@ -16,8 +16,6 @@ void SDsetup(int pinCS)
     return;
   }
   Serial.println("initialization done.");
-
-  
 }
 
 
@@ -33,6 +31,27 @@ void SDwrite(String nomFichier, String data)
     myFile.close();
    
   } 
+  else 
+  {
+    Serial.println("error opening file");
+  }
+}
+
+
+//reading parameter from sd card
+void SDread(String nomFichier, String* data)
+{
+  myFile = SD.open(nomFichier);
+  if (myFile) 
+  {
+    if(nomFichier == "config.txt" && myFile.available())
+      myFile.readStringUntil('\n');
+    while (myFile.available()) 
+    {
+      *data += myFile.readStringUntil('\n');
+    }
+    myFile.close();
+  }
   else 
   {
     Serial.println("error opening file");
