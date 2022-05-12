@@ -10,11 +10,13 @@ byte *gammatable = new byte[256];
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
 Ecran _ECRAN; 
 Bouton _BOUTON;
-
+LSD _LSD;
 
 
 void setup()
 {
+    _LSD.setup(6);
+
     _ECRAN.Initialiser();
     delay(1000);
     _ECRAN.setFont(POLICE_BANDEAU);
@@ -39,7 +41,9 @@ void loop()
         int *colorInfo = new int[3];
         ColorRead(gammatable, &tcs, colorInfo);
         _ECRAN.AfficherTexteMenu(String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2]));
+        _LSD.writeSalle("Salle 2", String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2])+";;");
     }
+
 // int *colorInfo = new int[3];
 //   Serial.println("Reading color...");
 //   delay(1000);

@@ -1,14 +1,18 @@
 #include "LSD.h"
 
 File myFile;
-void SDsetup(int pinCS)
+
+LSD::LSD(){
+}
+
+LSD::~LSD(){
+}
+
+
+void LSD::setup(int pinCS)
 {
   Serial.begin(9600);
   Serial.print("Initializing SD card...");
-  // On the Ethernet Shield, CS is pin 4. It's set as an output by default.
-  // Note that even if it's not used as the CS pin, the hardware SS pin 
-  // (10 on most Arduino boards, 53 on the Mega) must be left as an output 
-  // or the SD library functions will not work. 
    pinMode(pinCS, OUTPUT);
  
   if (!SD.begin(pinCS)) {
@@ -19,9 +23,8 @@ void SDsetup(int pinCS)
 }
 
 
-
 //writing parameter to sd card
-void SDwrite(String nomFichier, String data)
+void LSD::write(String nomFichier, String data)
 {
   myFile = SD.open(nomFichier, FILE_WRITE);
   if (myFile) 
@@ -33,19 +36,17 @@ void SDwrite(String nomFichier, String data)
   } 
   else 
   {
-    Serial.println("error opening file");
+    Serial.println("write : error opening file");
   }
 }
 
 
 //reading parameter from sd card
-void SDread(String nomFichier, String* data)
+void LSD::read(String nomFichier, String* data)
 {
   myFile = SD.open(nomFichier);
   if (myFile) 
   {
-    if(nomFichier == "config.txt" && myFile.available())
-      myFile.readStringUntil('\n');
     while (myFile.available()) 
     {
       *data += myFile.readStringUntil('\n');
@@ -54,6 +55,40 @@ void SDread(String nomFichier, String* data)
   }
   else 
   {
+    Serial.println("write salle: error opening file");
+  }
+}
+
+void LSD::writeSalle(String SelectedSalle, String data)
+{
+  myFile = SD.open("data.csv", O_RDWR);
+  if (myFile) 
+  {
+    int oui = 0;
+    while(myFile.available()){
+      oui++;
+      Serial.println(oui);
+      String line = myFile.readStringUntil(';');
+      const String test="Mesure";
+      myFile.readStringUntil('\n');
+      if(line == SelectedSalle) {
+        int i = 0;
+        Serial.println("found");
+        while((line = myFile.readStringUntil('\n')).substring(0,5)==test.substring(0,5)){
+          i++;
+          Serial.println(line);
+        }
+        myFile.seek(myFile.position()-line.length());
+        Serial.println("Mesure "+ String(i) + ';' + data+"\n"+line+"\n");
+        myFile.print("Mesure "+ String(i) + ';' + data+"\n"+line+"\n");
+        myFile.close();
+        return;
+      }
+    }
+  }
+  else
+  {
     Serial.println("error opening file");
   }
+    
 }

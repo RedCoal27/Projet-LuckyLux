@@ -5,7 +5,14 @@
 
 
 
+class LSD{
+public:
+    LSD();
+    ~LSD();
+    void setup(int pinCS=10);
+    void write(String nomFichier, String data);
+    void read(String nomFichier, String* data);
+    void writeSalle(String Salle, String data);
+    void readSalle(String Salle);
+};
 
-void SDsetup(int pinCS = 10);
-void SDwrite(String nomFichier, String data);
-void SDread(String nomFichier, String* data);

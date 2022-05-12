@@ -44,10 +44,8 @@ void ColorRead(byte *gammatable, Adafruit_TCS34725 *tcs,int* &colorInfo)
   float red, green, blue;
   Serial.println("Reading color...");
   tcs->setInterrupt(false); // turn on LED
-  Serial.println("Reading color2 ...");
   delay(60); // takes 50ms to read
   tcs->getRGB(&red, &green, &blue);
-  Serial.print("Red: ");
 
   tcs->setInterrupt(true); // turn off LED
   colorInfo[0] = int(red);
