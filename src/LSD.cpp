@@ -40,55 +40,46 @@ void LSD::write(String nomFichier, String data)
   }
 }
 
-
-//reading parameter from sd card
-void LSD::read(String nomFichier, String* data)
-{
-  myFile = SD.open(nomFichier);
+void LSD::readfile(String SelectedSalle){
+  myFile = SD.open(SelectedSalle);
   if (myFile) 
   {
     while (myFile.available()) 
     {
-      *data += myFile.readStringUntil('\n');
+      n_batiment += myFile.position();
+      Serial.println(n_batiment[0]);
+      myFile.readStringUntil('\n');
+      String test;
+      while((test = myFile.readStringUntil(';')) == "" && myFile.available()){
+        myFile.readStringUntil('\n');
+      }
+      if(myFile.available()){
+        myFile.seek(myFile.position()-test.length()-1);
+      }
+      
     }
+    myFile.close();
+    n_batiment += -1;
+    return;
+  }
+  else 
+  {
+    Serial.println("error opening file");
+  }
+}
+
+void LSD::readBatimentName(int SelectedBatiment){
+  myFile = SD.open(CSV);
+  if (myFile) 
+  {
+    Serial.println(n_batiment[SelectedBatiment]);
+    myFile.seek(n_batiment[SelectedBatiment]);
+    Serial.println(myFile.readStringUntil(';'));
+    Serial.println(myFile.readStringUntil(';'));
     myFile.close();
   }
   else 
   {
-    Serial.println("write salle: error opening file");
-  }
-}
-
-void LSD::writeSalle(String SelectedSalle, String data)
-{
-  myFile = SD.open("data.csv", O_RDWR);
-  if (myFile) 
-  {
-    int oui = 0;
-    while(myFile.available()){
-      oui++;
-      Serial.println(oui);
-      String line = myFile.readStringUntil(';');
-      const String test="Mesure";
-      myFile.readStringUntil('\n');
-      if(line == SelectedSalle) {
-        int i = 0;
-        Serial.println("found");
-        while((line = myFile.readStringUntil('\n')).substring(0,5)==test.substring(0,5)){
-          i++;
-          Serial.println(line);
-        }
-        myFile.seek(myFile.position()-line.length());
-        Serial.println("Mesure "+ String(i) + ';' + data+"\n"+line+"\n");
-        myFile.print("Mesure "+ String(i) + ';' + data+"\n"+line+"\n");
-        myFile.close();
-        return;
-      }
-    }
-  }
-  else
-  {
     Serial.println("error opening file");
   }
-    
 }

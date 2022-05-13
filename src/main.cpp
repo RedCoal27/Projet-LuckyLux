@@ -13,10 +13,11 @@ Bouton _BOUTON;
 LSD _LSD;
 
 
+
 void setup()
 {
     _LSD.setup(6);
-
+    _LSD.readfile(CSV);
     _ECRAN.Initialiser();
     delay(1000);
     _ECRAN.setFont(POLICE_BANDEAU);
@@ -24,7 +25,9 @@ void setup()
     _ECRAN.setFont(POLICE_MENU);
     _ECRAN.menuEntree(LUMINANCE);
     ColorSetup(gammatable, &tcs);
+
 }
+
 
 void loop()
 {
@@ -35,13 +38,15 @@ void loop()
     if(_BOUTON.pressed(BOUTONA1) == true)
     {
         _ECRAN.menuPrecedant();
+        _LSD.readBatimentName(2);
     }
     if(_BOUTON.pressed(BOUTONA2) == true)
     {
         int *colorInfo = new int[3];
         ColorRead(gammatable, &tcs, colorInfo);
+        //_LSD.writeSalle("Salle 2", String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2])+";;");
+        _LSD.write("data.bin", String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2])+";;");
         _ECRAN.AfficherTexteMenu(String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2]));
-        _LSD.writeSalle("Salle 2", String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2])+";;");
     }
 
 // int *colorInfo = new int[3];
