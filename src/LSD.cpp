@@ -24,15 +24,23 @@ void LSD::setup(int pinCS)
 
 
 //writing parameter to sd card
-void LSD::write(String nomFichier, String data)
+void LSD::write(String nomFichier,u_int16_t Batiment,u_int16_t Salle, int* Color,  u_int16_t Eclairement, u_int16_t Luminance)
 {
   myFile = SD.open(nomFichier, FILE_WRITE);
   if (myFile) 
   {
-    myFile.println(data);
-   
+    myFile.write(Batiment/256);
+    myFile.write(Batiment%256);
+    myFile.write(Salle/256);
+    myFile.write(Salle%256);
+    myFile.write(Color[0]);
+    myFile.write(Color[1]);
+    myFile.write(Color[2]);
+    myFile.write(Eclairement/256);
+    myFile.write(Eclairement%256);
+    myFile.write(Luminance/256);
+    myFile.write(Luminance%256);
     myFile.close();
-   
   } 
   else 
   {
@@ -65,21 +73,21 @@ void LSD::readfile(String SelectedSalle){
   else 
   {
     Serial.println("error opening file");
+    myFile.close();
   }
 }
 
-void LSD::readBatimentName(int SelectedBatiment){
+String LSD::readBatimentName(int SelectedBatiment){
   myFile = SD.open(CSV);
   if (myFile) 
   {
     Serial.println(n_batiment[SelectedBatiment]);
     myFile.seek(n_batiment[SelectedBatiment]);
-    Serial.println(myFile.readStringUntil(';'));
-    Serial.println(myFile.readStringUntil(';'));
-    myFile.close();
+    return myFile.readStringUntil(';');
   }
   else 
   {
     Serial.println("error opening file");
   }
+  myFile.close();
 }

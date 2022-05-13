@@ -15,8 +15,8 @@ public:
     LSD();
     ~LSD();
     void setup(int pinCS=10);
-    void write(String nomFichier, String data);
+    void write(String nomFichier, u_int16_t Batiment,u_int16_t Salle, int* Color,  u_int16_t Eclairement, u_int16_t Luminance);
     void readfile(String Salle);
-    void readBatimentName(int Batiment);
+    String readBatimentName(int Batiment);
 };
 

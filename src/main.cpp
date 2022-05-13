@@ -26,11 +26,17 @@ void setup()
     _ECRAN.menuEntree(LUMINANCE);
     ColorSetup(gammatable, &tcs);
 
+    digitalWrite(LED_PWR, LOW); // turn off power LED
+    digitalWrite(PIN_ENABLE_SENSORS_3V3, LOW); // turn sensor OFF
+
+    pinMode(PIN_A6, OUTPUT);
+    digitalWrite(PIN_A6, LOW);
 }
 
 
 void loop()
 {
+    delay(150);
     if(_BOUTON.pressed(BOUTONA0) == true)
     {
         _ECRAN.menuSuivant();
@@ -38,14 +44,15 @@ void loop()
     if(_BOUTON.pressed(BOUTONA1) == true)
     {
         _ECRAN.menuPrecedant();
-        _LSD.readBatimentName(2);
     }
     if(_BOUTON.pressed(BOUTONA2) == true)
     {
         int *colorInfo = new int[3];
         ColorRead(gammatable, &tcs, colorInfo);
         //_LSD.writeSalle("Salle 2", String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2])+";;");
-        _LSD.write("data.bin", String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2])+";;");
+        _ECRAN.AfficherTexteMenu(_LSD.readBatimentName(2));
+        _LSD.write(DATA, 2, 1 , colorInfo, -1, -1);
+        delay(100);
         _ECRAN.AfficherTexteMenu(String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2]));
     }
 
