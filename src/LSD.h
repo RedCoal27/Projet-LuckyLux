@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include <SD.h>
+#include <stdlib.h>
 #include "list.h"
 
 #define CSV "salle.csv"
@@ -11,11 +12,13 @@ class LSD{
 private:
     List n_batiment;
     List n_salle;
+    u_int16_t n_pbatiment;
+    u_int16_t n_psalle;
 public:
     LSD();
     ~LSD();
     void setup(int pinCS=10);
-    void write(String nomFichier, u_int16_t Batiment,u_int16_t Salle, int* Color,  u_int16_t Eclairement, u_int16_t Luminance);
+    void write(String nomFichier, int* Color);
     void readfile(String Salle);
     String readBatimentName(int Batiment);
 };

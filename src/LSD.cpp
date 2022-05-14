@@ -24,22 +24,30 @@ void LSD::setup(int pinCS)
 
 
 //writing parameter to sd card
-void LSD::write(String nomFichier,u_int16_t Batiment,u_int16_t Salle, int* Color,  u_int16_t Eclairement, u_int16_t Luminance)
+void LSD::write(String nomFichier, int* Color)
 {
+  //random test
+    n_pbatiment++;
+    Serial.println(n_batiment[n_pbatiment]);
+    if(n_batiment[n_pbatiment] == -1)
+      n_pbatiment = 0;
+    n_psalle = rand()%2;
+
+  //le fichier
   myFile = SD.open(nomFichier, FILE_WRITE);
   if (myFile) 
   {
-    myFile.write(Batiment/256);
-    myFile.write(Batiment%256);
-    myFile.write(Salle/256);
-    myFile.write(Salle%256);
-    myFile.write(Color[0]);
-    myFile.write(Color[1]);
-    myFile.write(Color[2]);
-    myFile.write(Eclairement/256);
-    myFile.write(Eclairement%256);
-    myFile.write(Luminance/256);
-    myFile.write(Luminance%256);
+    myFile.write(n_pbatiment%256);
+    myFile.write(n_pbatiment/256);
+    myFile.write(n_psalle%256);
+    myFile.write(n_psalle/256);
+    myFile.write(Color[0]%256);
+    myFile.write(Color[1]%256);
+    myFile.write(Color[2]%256);
+    myFile.write(Color[3]%256);
+    myFile.write(Color[3]/256);
+    myFile.write(Color[4]%256);
+    myFile.write(Color[4]/256);
     myFile.close();
   } 
   else 
@@ -55,7 +63,6 @@ void LSD::readfile(String SelectedSalle){
     while (myFile.available()) 
     {
       n_batiment += myFile.position();
-      Serial.println(n_batiment[0]);
       myFile.readStringUntil('\n');
       String test;
       while((test = myFile.readStringUntil(';')) == "" && myFile.available()){
@@ -83,11 +90,12 @@ String LSD::readBatimentName(int SelectedBatiment){
   {
     Serial.println(n_batiment[SelectedBatiment]);
     myFile.seek(n_batiment[SelectedBatiment]);
+    myFile.close();
     return myFile.readStringUntil(';');
   }
   else 
   {
     Serial.println("error opening file");
+    myFile.close();
   }
-  myFile.close();
 }

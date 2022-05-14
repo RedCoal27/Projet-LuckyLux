@@ -2,6 +2,8 @@
 #include "LSD.h"
 #include "Ecran.h"
 #include "Bouton.h"
+
+
 #define DISP GxEPD2_213_B72
 #define _SD_PIN_CS 6
 
@@ -46,14 +48,14 @@ void loop()
         _ECRAN.menuPrecedant();
     }
     if(_BOUTON.pressed(BOUTONA2) == true)
-    {
-        int *colorInfo = new int[3];
+    {   
+        //R,G,B,Eclairement,Luminance
+        int *colorInfo = new int[5];
         ColorRead(gammatable, &tcs, colorInfo);
         //_LSD.writeSalle("Salle 2", String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2])+";;");
         _ECRAN.AfficherTexteMenu(_LSD.readBatimentName(2));
-        _LSD.write(DATA, 2, 1 , colorInfo, -1, -1);
-        delay(100);
-        _ECRAN.AfficherTexteMenu(String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2]));
+        _LSD.write(DATA,colorInfo);
+        _ECRAN.AfficherTexteMenu(String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2])+ " "+String(colorInfo[3]));
     }
 
 // int *colorInfo = new int[3];
