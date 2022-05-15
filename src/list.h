@@ -13,4 +13,5 @@ public:
     List operator+= (int);
     int operator[] (int);
     List operator= (List);
+    int size();
 };
