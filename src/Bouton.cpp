@@ -1,13 +1,14 @@
 #include <Bouton.h>
 
 Bouton::Bouton(){
-    bLast = new bool[3];
-    for(int i = 0; i < 3; i++){
+    bLast = new bool[4];
+    for(int i = 0; i < 4; i++){
         bLast[i] = digitalRead(i);
     }
     pinMode(0, INPUT_PULLUP);
     pinMode(1, INPUT_PULLUP);
     pinMode(2, INPUT_PULLUP);
+    pinMode(3, INPUT_PULLUP);
 }
 
 Bouton::~Bouton(){

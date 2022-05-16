@@ -2,7 +2,7 @@
 #include "LSD.h"
 #include "Ecran.h"
 #include "Bouton.h"
-
+#include "Batterie.h"
 
 #define DISP GxEPD2_213_B72
 #define _SD_PIN_CS 6
@@ -13,7 +13,7 @@ Ecran _ECRAN;
 Bouton _BOUTON;
 LSD _LSD;
 tcs34725 _TCS;
-
+Batterie _BAT;
 
 
 void setup()
@@ -38,17 +38,17 @@ void setup()
 void loop()
 {
     delay(50);
-    if(_BOUTON.pressed(BOUTONA0) == true)
+    if(_BOUTON.pressed(BOUTOND0) == true)
     {
         //_ECRAN.menuSuivant();
         _LSD.SalleSuivante();
     }
-    if(_BOUTON.pressed(BOUTONA1) == true)
+    if(_BOUTON.pressed(BOUTOND1) == true)
     {
         //_ECRAN.menuPrecedant();
         _LSD.BatimentSuivant();
     }
-    if(_BOUTON.pressed(BOUTONA2) == true)
+    if(_BOUTON.pressed(BOUTOND2) == true)
     {   
         //R,G,B,Eclairement,Luminance
         int *colorInfo = new int[5];
@@ -59,5 +59,9 @@ void loop()
         _ECRAN.AfficherTexteMenu(_LSD.getSalle());
         _LSD.write(DATA,colorInfo);
         _ECRAN.AfficherTexteMenu(String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2])+ " "+String(colorInfo[3]));
+    }
+    if(_BOUTON.pressed(BOUTOND3) == true)
+    {
+        _ECRAN.AfficherTexteMenu(String(_BAT.getVBat()));
     }
 }
