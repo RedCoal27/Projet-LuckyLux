@@ -9,9 +9,10 @@
 #include <Fonts/FreeMonoBold12pt7b.h>
 #include <Fonts/FreeMonoOblique9pt7b.h>
 #include "LSD.h"
-#if  __has_include("myinclude.h")
-#include "include.h"
-#endif
+#include "epd/GxEPD2_213_B72.h"
+#include "U8g2_for_Adafruit_GFX-1.8.0\src\U8g2_for_Adafruit_GFX.h"
+
+
 #define NOIR 0
 #define BLANC 1
 #define HAUTEUR_BANDEAU 16
