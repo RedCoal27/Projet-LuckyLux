@@ -38,19 +38,19 @@ void setup()
 void loop()
 {
     delay(50);
-    //Bouton Pressed D0
+    //Bouton released D0
     if(_BOUTON.pressed(BOUTOND0) == true)
     {
         //_ECRAN.menuSuivant();
         _LSD.SalleSuivante();
     }
-    //Bouton Pressed D1
+    //Bouton released D1
     if(_BOUTON.pressed(BOUTOND1) == true)
     {
         //_ECRAN.menuPrecedant();
         _LSD.BatimentSuivant();
     }
-    //Bouton Pressed D2
+    //Bouton released D2
     //faudrais passer en fonction ça
     if(_BOUTON.pressed(BOUTOND2) == true)
     {   
@@ -64,7 +64,7 @@ void loop()
         _LSD.write(DATA,colorInfo);
         _ECRAN.AfficherTexteMenu(String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2])+ " "+String(colorInfo[3]));
     }
-    //Bouton Pressed D3
+    //Bouton released D3
     if(_BOUTON.pressed(BOUTOND3) == true)
         _ECRAN.AfficherTexteMenu(String(_BAT.getVBat()));
     //partie qui gère les timer des bouton
