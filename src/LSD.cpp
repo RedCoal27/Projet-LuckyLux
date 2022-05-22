@@ -95,6 +95,7 @@ void LSD::readfile(String SalleFile){
   }
 }
 
+
 void LSD::BatimentSuivant(){
   n_psalle = 0;
   n_pbatiment++;

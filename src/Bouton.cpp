@@ -1,15 +1,15 @@
 #include <Bouton.h>
 
 Bouton::Bouton(){
-    m_bLast = new bool[4];
-    m_nTimer = new int[4];
-    for(int i = 0; i < 4; i++){
-        m_bLast[i] = digitalRead(i);
-        m_nTimer[i] = 0;
-    }
+    m_bLast = new bool[3];
+    m_nTimer = new int[3];
     pinMode(BOUTOND0, INPUT_PULLUP);
     pinMode(BOUTOND1, INPUT_PULLUP);
     pinMode(BOUTOND2, INPUT_PULLUP);
+    for(int i = 0; i < 3; i++){
+        m_bLast[i] = digitalRead(i);
+        m_nTimer[i] = 0;
+    }
     // pinMode(BOUTOND3, INPUT_PULLUP);
 }
 
@@ -31,9 +31,10 @@ bool Bouton::pressed(int button)
 
 
 void Bouton::updateTimer(){
-    for(int i = 0; i < 4; i++){
-        if(m_bLast[i] == HIGH){
-            m_nTimer[i]+=50;
+    for(int i = 0; i < 3; i++){
+        if(digitalRead(i) == LOW){
+            m_nTimer[i]+=MAINDELAY;
+            Serial.println("Bouton " + String(i) + " : " + String(m_nTimer[i]));
         }
         else{
             m_nTimer[i] = 0;
@@ -44,7 +45,11 @@ void Bouton::updateTimer(){
 
 bool Bouton::LongPressed(int button)
 {
-    if(m_nTimer[button] >= TIMERDELAY && m_nTimer[button] < TIMERDELAYMAX && digitalRead(button)==LOW)
+    // if(m_nTimer[button] >= TIMERDELAY && m_nTimer[button] < TIMERDELAYMAX && digitalRead(button)==HIGH)
+    // {
+    //     return true;
+    // }
+    if(m_nTimer[button] >= TIMERDELAY && digitalRead(button)==HIGH && m_nTimer[button]<=TIMERDELAYMAX)
     {
         return true;
     }

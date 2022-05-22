@@ -1,13 +1,11 @@
 #include "Ecran.h"
 
-Ecran::Ecran(): m_Ecran(GxEPD2_213_B72(D10, D9, D8, D7)), m_spMenu(nullptr), m_nCompteurMenu(0), m_Batterie()
+Ecran::Ecran(): m_Ecran(GxEPD2_213_B72(D10, D9, D8, D7)), m_nCurrentMenuIndex(0)
 {
-    m_spMenu = new String[5] {"Trois Mesures", "Eclairement", "Couleur",  "Luminance", "Mesure Continue"};
 }
 
 Ecran::~Ecran()
 {
-    delete[] m_spMenu;
 }
 
 void Ecran::Initialiser()
@@ -21,11 +19,8 @@ void Ecran::Initialiser()
 
 void Ecran::AfficherBandeau()
 {
+    Batterie batterie;
     m_Ecran.setPartialWindow(0, 0, m_Ecran.width(), m_Ecran.height() - HAUTEUR_BANDEAU);
-
-    int16_t bordureTexteX, bordureTexteY; 
-    uint16_t largeurTexte, hauteurTexte;
-    String sValBatterie = String(m_Batterie.getVBat());
     m_Ecran.setTextColor(BLANC);
     m_Ecran.setTextColor(NOIR);
 
@@ -34,10 +29,20 @@ void Ecran::AfficherBandeau()
       m_Ecran.fillRect(0, 0, m_Ecran.width(),HAUTEUR_BANDEAU, NOIR);
     } 
     while (m_Ecran.nextPage());
-    m_Ecran.getTextBounds(sValBatterie, 0, 0, &bordureTexteX, &bordureTexteY, &largeurTexte, &hauteurTexte);
-    AfficherTexte("LuckyLux", 0, yMENU_MIN - 5 /*petite marge*/, BLANC);
-    AfficherTexte(sValBatterie, xMAX - largeurTexte - 1, yMENU_MIN - 5, BLANC);
+    AfficherTexte("LuckyLux", 0, yMENU_MIN - 5 /*petite marge*/, BLANC);    
+    AfficherBatterie(batterie.getVBat());
+    }
+
+void Ecran::AfficherRectangle(int x, int y, int w, int h, int couleur)
+{
+    m_Ecran.setPartialWindow(x, y, w, h);
+    do
+    {   
+     m_Ecran.fillRect(x, y, w, h, couleur);
+    }
+    while(m_Ecran.nextPage());
 }
+
 
 void Ecran::AfficherTexteCentre(String str, int couleur)
 {
@@ -80,7 +85,7 @@ void Ecran::AfficherTexte(String str, int x0, int y1, int couleur)
 
 }
 
-void Ecran::AfficherTexteMenu(String mode)
+void Ecran::AfficherTexteMenu(String menu)
 {   
     m_Ecran.setPartialWindow(xMENU_MIN, yMENU_MIN + 8, xMENU_MAX - xMENU_MIN, yMENU_MAX - yMENU_MIN);
     do
@@ -89,34 +94,36 @@ void Ecran::AfficherTexteMenu(String mode)
         m_Ecran.fillRect(xMENU_MIN, yMENU_MIN, xMENU_MAX - xMENU_MIN, yMENU_MAX - yMENU_MIN, BLANC);
     } 
     while (m_Ecran.nextPage());
-    AfficherTexteCentre(mode, NOIR);
+    AfficherTexteCentre(menu, NOIR);
 }
 
 void Ecran::setFont(const GFXfont* police)
 {
     m_Ecran.setFont(police);
 }
-void Ecran::menuEntree(unsigned int indice)
+
+void Ecran::AfficherBatterie(const float pourcentage)
 {
-    AfficherTexteMenu(m_spMenu[indice]);
-    if (indice < 5)
-        m_nCompteurMenu = indice;
-    else
-        m_nCompteurMenu = 0;
+    do
+    {
+          //draw battery
+        m_Ecran.fillRect(xMIN_BAT + WIDTH_BAT, yMIN_BAT + 2, 2, HEIGHT_BAT-4, BLANC);
+        m_Ecran.drawRect(xMIN_BAT, yMIN_BAT, WIDTH_BAT, HEIGHT_BAT, BLANC);
+        m_Ecran.fillRect(xMIN_BAT+1, yMIN_BAT+1, WIDTH_BAT-2, HEIGHT_BAT-2, NOIR);
+        m_Ecran.fillRect(xMIN_BAT+1, yMIN_BAT+1, int(pourcentage * (WIDTH_BAT-2)), HEIGHT_BAT-2, BLANC);
+      //m_Ecran.fillRect(xMIN_BAT, yMIN_BAT, 15, 6, BLANC);
+    } 
+    while (m_Ecran.nextPage());
 }
 
-void Ecran::menuSuivant()
+
+int Ecran::getCurrentMenuIndex()
 {
-    m_nCompteurMenu++;
-    if (m_nCompteurMenu >= 5)
-        m_nCompteurMenu = 0; 
-    AfficherTexteMenu(m_spMenu[m_nCompteurMenu]);
+    return m_nCurrentMenuIndex;
 }
 
-void Ecran::menuPrecedant()
+
+void Ecran::setCurrentMenuIndex(int index)
 {
-    m_nCompteurMenu--;
-    if (m_nCompteurMenu < 0)
-        m_nCompteurMenu = 4; 
-    AfficherTexteMenu(m_spMenu[m_nCompteurMenu]);
+    m_nCurrentMenuIndex = index;
 }
