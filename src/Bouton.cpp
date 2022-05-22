@@ -1,11 +1,11 @@
 #include <Bouton.h>
 
 Bouton::Bouton(){
-    bLast = new bool[4];
-    n_Timer = new int[4];
+    m_bLast = new bool[4];
+    m_nTimer = new int[4];
     for(int i = 0; i < 4; i++){
-        bLast[i] = digitalRead(i);
-        n_Timer[i] = 0;
+        m_bLast[i] = digitalRead(i);
+        m_nTimer[i] = 0;
     }
     pinMode(BOUTOND0, INPUT_PULLUP);
     pinMode(BOUTOND1, INPUT_PULLUP);
@@ -14,34 +14,35 @@ Bouton::Bouton(){
 }
 
 Bouton::~Bouton(){
-    delete[] bLast;
+    delete[] m_bLast;
 }
 
 bool Bouton::pressed(int button){
     bool state = digitalRead(button);
-    if (bLast[button] != state && state == HIGH && n_Timer[button] < TIMERDELAY){
-        bLast[button] = state;
+    if (m_bLast[button] != state && state == HIGH && m_nTimer[button] < TIMERDELAY){
+        m_bLast[button] = state;
         return true;
     }
-    bLast[button] = state;
+    m_bLast[button] = state;
     return false;
 }
 
 
 void Bouton::updateTimer(){
     for(int i = 0; i < 4; i++){
-        if(bLast[i] == HIGH){
-            n_Timer[i]+=50;
+        if(m_bLast[i] == HIGH){
+            m_nTimer[i]+=50;
         }
         else{
-            n_Timer[i] = 0;
+            m_nTimer[i] = 0;
         }
     }
 }
 
 
-bool Bouton::LongPressed(int button){
-    if(n_Timer[button] >= TIMERDELAY && n_Timer[button] < TIMERDELAYMAX && digitalRead(button)==LOW){
+bool Bouton::LongPressed(int button)
+{
+    if(m_nTimer[button] >= TIMERDELAY && m_nTimer[button] < TIMERDELAYMAX && digitalRead(button)==LOW){
         return true;
     }
     return false;

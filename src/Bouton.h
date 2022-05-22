@@ -13,8 +13,8 @@
 
 class Bouton{
 private:
-    bool* bLast;
-    int* n_Timer;
+    bool* m_bLast;
+    int* m_nTimer;
 public:
     Bouton();
     ~Bouton();

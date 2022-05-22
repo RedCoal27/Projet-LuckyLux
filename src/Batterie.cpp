@@ -27,7 +27,7 @@ void Batterie::update(){
 
 void Batterie::calculVBat(){
     vBat = analogRead(PIN_BATTERIE);
-    Serial.println(vBat);
+    // Serial.println(vBat);
     vBat = vBat/1023*TensionMax;
     //tension batterie entre BatterieVide et BatteriePleine EN %
     vBat = (vBat - BatterieVide)/(BatteriePleine - BatterieVide)*100;

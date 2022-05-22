@@ -1,8 +1,8 @@
 #include "Ecran.h"
 
-Ecran::Ecran(): m_Ecran(GxEPD2_213_B72(D10, D9, D8, D7)), m_spMenu(nullptr), m_nCompteurMenu(0)
+Ecran::Ecran(): m_Ecran(GxEPD2_213_B72(D10, D9, D8, D7)), m_spMenu(nullptr), m_nCompteurMenu(0), m_Batterie()
 {
-    m_spMenu = new String[5] {"Luminance", "Eclairement", "Couleur", "Trois Mesures", "Mesure Continue"};
+    m_spMenu = new String[5] {"Trois Mesures", "Eclairement", "Couleur",  "Luminance", "Mesure Continue"};
 }
 
 Ecran::~Ecran()
@@ -25,7 +25,7 @@ void Ecran::AfficherBandeau()
 
     int16_t bordureTexteX, bordureTexteY; 
     uint16_t largeurTexte, hauteurTexte;
-
+    String sValBatterie = String(m_Batterie.getVBat());
     m_Ecran.setTextColor(BLANC);
     m_Ecran.setTextColor(NOIR);
 
@@ -34,9 +34,9 @@ void Ecran::AfficherBandeau()
       m_Ecran.fillRect(0, 0, m_Ecran.width(),HAUTEUR_BANDEAU, NOIR);
     } 
     while (m_Ecran.nextPage());
-    m_Ecran.getTextBounds("Alpha", 0, 0, &bordureTexteX, &bordureTexteY, &largeurTexte, &hauteurTexte);
+    m_Ecran.getTextBounds(sValBatterie, 0, 0, &bordureTexteX, &bordureTexteY, &largeurTexte, &hauteurTexte);
     AfficherTexte("LuckyLux", 0, yMENU_MIN - 5 /*petite marge*/, BLANC);
-    AfficherTexte("Alpha", xMAX - largeurTexte - 1, yMENU_MIN - 5, BLANC);
+    AfficherTexte(sValBatterie, xMAX - largeurTexte - 1, yMENU_MIN - 5, BLANC);
 }
 
 void Ecran::AfficherTexteCentre(String str, int couleur)
