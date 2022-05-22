@@ -96,7 +96,6 @@ void Ecran::setFont(const GFXfont* police)
 {
     m_Ecran.setFont(police);
 }
-
 void Ecran::menuEntree(unsigned int indice)
 {
     AfficherTexteMenu(m_spMenu[indice]);
@@ -104,7 +103,6 @@ void Ecran::menuEntree(unsigned int indice)
         m_nCompteurMenu = indice;
     else
         m_nCompteurMenu = 0;
-    
 }
 
 void Ecran::menuSuivant()
