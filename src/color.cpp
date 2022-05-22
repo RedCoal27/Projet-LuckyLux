@@ -98,56 +98,56 @@ void tcs34725::ColorRead(byte *gammatable,int* &colorInfo)
   Serial.println("Reading color...");
   getData();
 
-  Serial.print(F("Gain:"));
-  Serial.print(againx);
-  Serial.print(F("x "));
-  Serial.print(F("Time:"));
-  Serial.print(atime_ms);
-  Serial.print(F("ms (0x"));
-  Serial.print(atime, HEX);
-  Serial.println(F(")"));
+  // Serial.print(F("Gain:"));
+  // Serial.print(againx);
+  // Serial.print(F("x "));
+  // Serial.print(F("Time:"));
+  // Serial.print(atime_ms);
+  // Serial.print(F("ms (0x"));
+  // Serial.print(atime, HEX);
+  // Serial.println(F(")"));
 
-  Serial.print(F("Raw R:"));
-  Serial.print(r);
-  Serial.print(F(" G:"));
-  Serial.print(g);
-  Serial.print(F(" B:"));
-  Serial.print(b);
-  Serial.print(F(" C:"));
-  Serial.println(c);
+  // Serial.print(F("Raw R:"));
+  // Serial.print(r);
+  // Serial.print(F(" G:"));
+  // Serial.print(g);
+  // Serial.print(F(" B:"));
+  // Serial.print(b);
+  // Serial.print(F(" C:"));
+  // Serial.println(c);
 
-  Serial.print(F("IR:"));
-  Serial.print(ir);
-  Serial.print(F(" CRATIO:"));
-  Serial.print(cratio);
-  Serial.print(F(" Sat:"));
-  Serial.print(saturation);
-  Serial.print(F(" Sat75:"));
-  Serial.print(saturation75);
-  Serial.print(F(" "));
-  Serial.println(isSaturated ? "*SATURATED*" : "");
+  // Serial.print(F("IR:"));
+  // Serial.print(ir);
+  // Serial.print(F(" CRATIO:"));
+  // Serial.print(cratio);
+  // Serial.print(F(" Sat:"));
+  // Serial.print(saturation);
+  // Serial.print(F(" Sat75:"));
+  // Serial.print(saturation75);
+  // Serial.print(F(" "));
+  // Serial.println(isSaturated ? "*SATURATED*" : "");
 
-  Serial.print(F("CPL:"));
-  Serial.print(cpl);
-  Serial.print(F(" Max lux:"));
-  Serial.println(maxlux);
+  // Serial.print(F("CPL:"));
+  // Serial.print(cpl);
+  // Serial.print(F(" Max lux:"));
+  // Serial.println(maxlux);
 
-  Serial.print(F("Compensated R:"));
-  Serial.print(r_comp);
-  Serial.print(F(" G:"));
-  Serial.print(g_comp);
-  Serial.print(F(" B:"));
-  Serial.print(b_comp);
-  Serial.print(F(" C:"));
-  Serial.println(c_comp);
+  // Serial.print(F("Compensated R:"));
+  // Serial.print(r_comp);
+  // Serial.print(F(" G:"));
+  // Serial.print(g_comp);
+  // Serial.print(F(" B:"));
+  // Serial.print(b_comp);
+  // Serial.print(F(" C:"));
+  // Serial.println(c_comp);
 
-  Serial.print(F("Lux:"));
-  Serial.print(lux);
-  Serial.print(F(" CT:"));
-  Serial.print(ct);
-  Serial.println(F("K"));
+  // Serial.print(F("Lux:"));
+  // Serial.print(lux);
+  // Serial.print(F(" CT:"));
+  // Serial.print(ct);
+  // Serial.println(F("K"));
 
-  Serial.println();
+  // Serial.println();
   float r,g,b;
   // Avoid divide by zero errors ... if clear = 0 return black
   if (c_comp == 0) {

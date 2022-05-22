@@ -19,7 +19,7 @@ Bouton::~Bouton(){
 
 bool Bouton::pressed(int button){
     bool state = digitalRead(button);
-    if (bLast[button] != state && state == LOW){
+    if (bLast[button] != state && state == HIGH && n_Timer[button] < TIMERDELAY){
         bLast[button] = state;
         return true;
     }
@@ -41,7 +41,7 @@ void Bouton::updateTimer(){
 
 
 bool Bouton::LongPressed(int button){
-    if(n_Timer[button] > TIMERDELAY && n_Timer[button] < TIMERDELAYMAX && digitalRead(button)==LOW){
+    if(n_Timer[button] >= TIMERDELAY && n_Timer[button] < TIMERDELAYMAX && digitalRead(button)==LOW){
         return true;
     }
     return false;
