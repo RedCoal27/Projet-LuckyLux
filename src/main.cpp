@@ -38,16 +38,20 @@ void setup()
 void loop()
 {
     delay(50);
+    //Bouton Pressed D0
     if(_BOUTON.pressed(BOUTOND0) == true)
     {
         //_ECRAN.menuSuivant();
         _LSD.SalleSuivante();
     }
+    //Bouton Pressed D1
     if(_BOUTON.pressed(BOUTOND1) == true)
     {
         //_ECRAN.menuPrecedant();
         _LSD.BatimentSuivant();
     }
+    //Bouton Pressed D2
+    //faudrais passer en fonction ça
     if(_BOUTON.pressed(BOUTOND2) == true)
     {   
         //R,G,B,Eclairement,Luminance
@@ -60,8 +64,17 @@ void loop()
         _LSD.write(DATA,colorInfo);
         _ECRAN.AfficherTexteMenu(String(colorInfo[0]) + " " + String(colorInfo[1]) + " " + String(colorInfo[2])+ " "+String(colorInfo[3]));
     }
+    //Bouton Pressed D3
     if(_BOUTON.pressed(BOUTOND3) == true)
-    {
         _ECRAN.AfficherTexteMenu(String(_BAT.getVBat()));
-    }
+    //partie qui gère les timer des bouton
+    if(_BOUTON.LongPressed(BOUTOND0) == true)
+        _ECRAN.AfficherTexteMenu("Long press D0"); 
+    if(_BOUTON.LongPressed(BOUTOND1) == true)
+        _ECRAN.AfficherTexteMenu("Long press D1");
+    if(_BOUTON.LongPressed(BOUTOND2) == true)
+        _ECRAN.AfficherTexteMenu("Long press D2");
+    if(_BOUTON.LongPressed(BOUTOND3) == true)
+        _ECRAN.AfficherTexteMenu("Long press D3");
+    _BOUTON.updateTimer();
 }
