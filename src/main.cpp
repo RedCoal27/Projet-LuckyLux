@@ -26,7 +26,7 @@ void menuBatiment()
 
 void menuSalle()
 {
-    
+    _ECRAN.setFont(POLICE_MENU);
     _ECRAN.setCurrentMenuIndex(1);
     _ECRAN.AfficherTexteMenu(_LSD.getSalle());
     _ECRAN.setFont(&FreeMonoBold9pt7b);
@@ -40,6 +40,7 @@ void menuMesure(){
     _ECRAN.setFont(&FreeMonoBold9pt7b);
 
     _ECRAN.AfficherTexte(_LSD.getSalle(), 0, 34, NOIR);
+    _ECRAN.AfficherTexte(_LSD.getBatiment(), xMENU_MIN, 119, NOIR);
     _ECRAN.AfficherRectangle(0, 40, 250, 64, BLANC);
     
     _ECRAN.setFont(POLICE_MENU);
@@ -50,7 +51,8 @@ void getMesure(){
     //R,G,B,Eclairement,Luminance
     _TCS.ColorRead(gammatable, _colorInfo);
     _LSD.write(DATA,_colorInfo);
-    _ECRAN.AfficherTexteCentre(String("R:") + String(_colorInfo[0]) + " V:" + String(_colorInfo[1]) + " B:" + String(_colorInfo[2])+ "L:" +String(_colorInfo[3]), NOIR);
+    _ECRAN.AfficherRectangle(0, 40, 250, 64, BLANC);
+    _ECRAN.AfficherTexteCentre(String("R:") + String(_colorInfo[0]) + " V:" + String(_colorInfo[1]) + " B:" + String(_colorInfo[2])+ " E:" +String(_colorInfo[3]), NOIR);
 }
 
 void menuPrincipal()
@@ -90,8 +92,8 @@ void loop()
         }
         else if(_ECRAN.getCurrentMenuIndex() == 1)
         {
-            _LSD.SallePrecedente();
-            _ECRAN.AfficherTexteMenu(_LSD.getSalle());
+            _LSD.SalleSuivante();
+            menuSalle();
         }   
     }
 
@@ -104,8 +106,8 @@ void loop()
         }
         else if(_ECRAN.getCurrentMenuIndex() == 1)
         {
-            _LSD.SalleSuivante();
-            _ECRAN.AfficherTexteMenu(_LSD.getSalle());
+            _LSD.SallePrecedente();
+            menuSalle();
         }
     }
 
@@ -131,10 +133,13 @@ void loop()
     {
         if(_ECRAN.getCurrentMenuIndex() == 1)
         {
-            menuBatiment();
+            menuPrincipal();
         }
         else if(_ECRAN.getCurrentMenuIndex() == 2)
         {
+            _ECRAN.Initialiser();
+            _ECRAN.setFont(POLICE_BANDEAU);
+            _ECRAN.AfficherBandeau();
             menuSalle();
         }
     }
