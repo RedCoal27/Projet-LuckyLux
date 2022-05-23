@@ -52,7 +52,7 @@ void getMesure(){
     _TCS.ColorRead(gammatable, _colorInfo);
     _LSD.write(DATA,_colorInfo);
     _ECRAN.AfficherRectangle(0, 40, 250, 64, BLANC);
-    _ECRAN.AfficherTexteCentre(String("R:") + String(_colorInfo[0]) + " V:" + String(_colorInfo[1]) + " B:" + String(_colorInfo[2])+ " E:" +String(_colorInfo[3]), NOIR);
+    _ECRAN.AfficherTexteCentre(String("R: ") + String(_colorInfo[0]) + " V: " + String(_colorInfo[1]) + " B: " + String(_colorInfo[2])+ "   E:" +String(_colorInfo[3]), NOIR);
 }
 
 void menuPrincipal()
@@ -71,13 +71,13 @@ void setup()
     _LSD.setup(6);   
     _LSD.readfile(CSV); 
     menuPrincipal();
-    _TCS.ColorSetup(gammatable);
     digitalWrite(LED_PWR, LOW); // turn off power LED
     digitalWrite(PIN_ENABLE_SENSORS_3V3, LOW); // turn sensor OFF
-
+    _TCS.ColorSetup(gammatable);
     pinMode(PIN_A6, OUTPUT);
     digitalWrite(PIN_A6, LOW);
     _ECRAN.AfficherBatterie(_BATTERIE.getVBat());
+    _TCS.ColorRead(gammatable, _colorInfo);
 }
 
 
