@@ -35,13 +35,21 @@ void LSD::write(String nomFichier, int* Color)
     myFile.write(n_pbatiment/256);
     myFile.write(n_psalle%256);
     myFile.write(n_psalle/256);
+    //Red
     myFile.write(Color[0]%256);
+    //Green
     myFile.write(Color[1]%256);
+    //Blue
     myFile.write(Color[2]%256);
+    //Temperature de couleur
     myFile.write(Color[3]%256);
     myFile.write(Color[3]/256);
+    //Eclairement
     myFile.write(Color[4]%256);
     myFile.write(Color[4]/256);
+    //Luminance
+    myFile.write(Color[5]%256);
+    myFile.write(Color[5]/256);
     myFile.write(n_coneluminance);
     myFile.close();
   } 

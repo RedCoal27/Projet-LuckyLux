@@ -162,6 +162,7 @@ void tcs34725::ColorRead(byte *gammatable,int* &colorInfo)
   colorInfo[0] = u_int8_t(r);
   colorInfo[1] = u_int8_t(g);
   colorInfo[2] = u_int8_t(b);
-  colorInfo[3] = u_int16_t(lux);
-  colorInfo[4] = u_int16_t(0);
+  colorInfo[3] = u_int16_t(ct);
+  colorInfo[4] = u_int16_t(lux);
+  colorInfo[5] = u_int16_t(0);
 }

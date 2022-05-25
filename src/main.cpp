@@ -14,7 +14,13 @@ Bouton _BOUTON;
 LSD _LSD;
 tcs34725 _TCS;
 Batterie _BATTERIE;
-int *_colorInfo = new int[5];
+int *_colorInfo = new int[6];
+
+void TextCentre(String text){
+    _ECRAN.setFont(POLICE_MENU);
+    _ECRAN.AfficherRectangle(0, 40, 250, 64, BLANC);
+    _ECRAN.AfficherTexteCentre(text, NOIR);
+}
 
 
 void menuBatiment()
@@ -26,12 +32,11 @@ void menuBatiment()
 
 void menuSalle()
 {
-    _ECRAN.setFont(POLICE_MENU);
     _ECRAN.setCurrentMenuIndex(1);
+    _ECRAN.setFont(POLICE_MENU);
     _ECRAN.AfficherTexteMenu(_LSD.getSalle());
     _ECRAN.setFont(&FreeMonoBold9pt7b);
     _ECRAN.AfficherTexte(_LSD.getBatiment(), xMENU_MIN, 119, NOIR);
-    
 }
 
 
@@ -40,8 +45,8 @@ void menuMesure(){
     _ECRAN.setFont(&FreeMonoBold9pt7b);
 
     _ECRAN.AfficherTexte(_LSD.getSalle(), 0, 34, NOIR);
-    _ECRAN.AfficherTexte(_LSD.getBatiment(), xMENU_MIN, 119, NOIR);
     _ECRAN.AfficherRectangle(0, 40, 250, 64, BLANC);
+    _ECRAN.AfficherTexte(_LSD.getBatiment(), xMENU_MIN, 119, NOIR);
     
     _ECRAN.setFont(POLICE_MENU);
 }
@@ -52,7 +57,7 @@ void getMesure(){
     _TCS.ColorRead(gammatable, _colorInfo);
     _LSD.write(DATA,_colorInfo);
     _ECRAN.AfficherRectangle(0, 40, 250, 64, BLANC);
-    _ECRAN.AfficherTexteCentre(String("R: ") + String(_colorInfo[0]) + " V: " + String(_colorInfo[1]) + " B: " + String(_colorInfo[2])+ "   E:" +String(_colorInfo[3]), NOIR);
+    _ECRAN.AfficherTexteCentre(String("R: ") + String(_colorInfo[0]) + " V: " + String(_colorInfo[1]) + " B: " + String(_colorInfo[2])+ "   " +String(_colorInfo[3])+ "K  " +String(_colorInfo[4])+"lux", NOIR);
 }
 
 void menuPrincipal()
@@ -85,35 +90,47 @@ void loop()
 {
     if  (_BOUTON.pressed(BOUTOND0))
     {
+        if(_ECRAN.getCurrentMenuIndex() == -1)
+        {
+            menuPrincipal();
+        }
         if(_ECRAN.getCurrentMenuIndex() == 0)
         {
             _LSD.BatimentSuivant();
-            _ECRAN.AfficherTexteMenu(_LSD.getBatiment());
+            TextCentre(_LSD.getBatiment());
         }
         else if(_ECRAN.getCurrentMenuIndex() == 1)
         {
             _LSD.SalleSuivante();
-            menuSalle();
+            TextCentre(_LSD.getSalle());
         }   
     }
 
     if  (_BOUTON.pressed(BOUTOND1))
     {
-        if(_ECRAN.getCurrentMenuIndex() == 0)
+        if(_ECRAN.getCurrentMenuIndex() == -1)
+        {
+            menuPrincipal();
+        }
+        else if(_ECRAN.getCurrentMenuIndex() == 0)
         {
             _LSD.BatimentPrecedent();
-            _ECRAN.AfficherTexteMenu(_LSD.getBatiment());
+            TextCentre(_LSD.getBatiment());
         }
         else if(_ECRAN.getCurrentMenuIndex() == 1)
         {
             _LSD.SallePrecedente();
-            menuSalle();
+            TextCentre(_LSD.getSalle());
         }
     }
 
     if  (_BOUTON.pressed(BOUTOND2))
     {
-        if(_ECRAN.getCurrentMenuIndex() == 0)
+        if(_ECRAN.getCurrentMenuIndex() == -1)
+        {
+            menuPrincipal();
+        }
+        else if(_ECRAN.getCurrentMenuIndex() == 0)
         {
             menuSalle();
 
@@ -131,7 +148,12 @@ void loop()
 
     if  (_BOUTON.LongPressed(BOUTOND1))
     {
-        if(_ECRAN.getCurrentMenuIndex() == 1)
+        if(_ECRAN.getCurrentMenuIndex() == 0)
+        {
+            _ECRAN.setCurrentMenuIndex(-1);
+            _ECRAN.Initialiser();
+        }
+        else if(_ECRAN.getCurrentMenuIndex() == 1)
         {
             menuPrincipal();
         }

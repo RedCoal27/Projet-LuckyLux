@@ -6,8 +6,8 @@
 #define BOUTOND2 2
 #define BOUTOND3 3
 
-#define TIMERDELAY 1000
-#define TIMERDELAYMAX 3000
+#define TIMERDELAY 500
+#define TIMERDELAYMAX 2000
 
 #define MAINDELAY 50
 
